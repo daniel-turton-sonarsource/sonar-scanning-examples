@@ -18,11 +18,12 @@ jobs:
 
       - name: Begin Sonar analysis
         working-directory: ./sonar-scanner-dotnet/CSharpProject/SomeConsoleApplication
-        run: dotnet-sonarscanner begin \
+        run: |
+          dotnet-sonarscanner begin \
           /key:"sonar-scanning-examples-ado" \
           /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
-          /d:sonar.host.url="${{ vars.SONAR_HOST_URL }}"
-          /d:sonar.branch.name="${{ github.head_ref }}"
+          /d:sonar.host.url="${{ vars.SONAR_HOST_URL }}" \
+          /d:sonar.branch.name="${{ github.head_ref }}" \
           /o:"${{ vars.SQC_ORG }}"
 
       - name: Build
