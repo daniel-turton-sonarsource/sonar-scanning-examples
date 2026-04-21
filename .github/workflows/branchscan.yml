@@ -1,0 +1,26 @@
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install SonarScanner for .NET
+        run: dotnet tool install --global dotnet-sonarscanner
+
+      - name: Begin Sonar analysis
+        working-directory: ./sonar-scanner-dotnet/CSharpProject/SomeConsoleApplication
+        run: dotnet-sonarscanner begin \
+          /k:"sonar-scanning-examples-ado" \
+          /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
+          /d:sonar.host.url="${{ vars.SONAR_HOST_URL }}"
+          /d:sonar.branch.name="${{ github.head_ref }}"
+
+      - name: Build
+        working-directory: ./sonar-scanner-dotnet/CSharpProject/SomeConsoleApplication
+        run: dotnet build
+
+      - name: End Sonar analysis
+        working-directory: ./sonar-scanner-dotnet/CSharpProject/SomeConsoleApplication
+        run: dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
