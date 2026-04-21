@@ -18,7 +18,7 @@ jobs:
 
       - name: Begin Sonar analysis
         working-directory: ./sonar-scanner-dotnet/CSharpProject/SomeConsoleApplication
-        run: |
+        run: | 
           dotnet-sonarscanner begin \
           /key:"sonar-scanning-examples-ado" \
           /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
