@@ -2,7 +2,7 @@ name: test SQC CI
 
 on:
   pull_request:
-    branches: [ "main", "testbranch" ]
+    branches: [ "master", "testbranch" ]
 
 jobs:
   build:
