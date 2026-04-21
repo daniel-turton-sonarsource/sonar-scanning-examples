@@ -1,8 +1,6 @@
 name: test SQC CI
 
 on:
-  push:
-    branches: [ "main", "testbranch" ]
   pull_request:
     branches: [ "main", "testbranch" ]
 
@@ -24,6 +22,7 @@ jobs:
           /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
           /d:sonar.host.url="${{ vars.SONAR_HOST_URL }}"
           /d:sonar.branch.name="${{ github.head_ref }}"
+          /d:sonar.organization="${{ vars.SQC_ORG }}"
 
       - name: Build
         working-directory: ./sonar-scanner-dotnet/CSharpProject/SomeConsoleApplication
